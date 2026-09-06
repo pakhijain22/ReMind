@@ -1,4 +1,4 @@
-# CogniCare — Frontend
+# ReMind 
 
 React + Vite + Tailwind PWA scaffold for SIH26003. All 10 pages are built and
 fully styled with the "Warm Trust" colour palette, wired together with
