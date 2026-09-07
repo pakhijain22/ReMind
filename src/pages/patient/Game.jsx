@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import Button from '../../components/Button.jsx'
 import Card from '../../components/Card.jsx'
-import VoiceButton from '../../components/VoiceButton.jsx'
+import PageHeader from '../../components/PageHeader.jsx'
 
 // NER cultural pattern icons — swap with real assets later
 const PATTERNS = ['🐘', '🦚', '🌺', '🎋', '🏮', '🪶']
@@ -20,7 +19,6 @@ function generateRound(difficulty) {
 }
 
 export default function Game() {
-  const navigate = useNavigate()
   const [difficulty, setDifficulty] = useState(1)
   const [tiles, setTiles] = useState(() => generateRound(1))
   const [flipped, setFlipped] = useState([])
@@ -58,16 +56,14 @@ export default function Game() {
   }
 
   return (
-    <div className="patient-screen min-h-screen bg-offwhite p-6 flex flex-col gap-5">
-      <div className="flex items-center justify-between">
-        <Button variant="ghost" onClick={() => navigate('/patient/home')}>← Back</Button>
-        <VoiceButton text={`Pattern matching game. Your score is ${score}.`} />
-      </div>
+    <div className="patient-screen min-h-screen bg-offwhite dark:bg-bg-dark transition-colors duration-300 p-6 flex flex-col gap-5">
+      <PageHeader
+        title="Pattern Match"
+        backTo="/patient/games"
+        voiceText={`Pattern matching game. Your score is ${score}.`}
+      />
 
-      <div className="text-center">
-        <h1 className="text-2xl font-bold text-teal">Pattern Match</h1>
-        <p className="text-lg text-charcoal">Score: {score}</p>
-      </div>
+      <p className="text-lg text-charcoal dark:text-text-dark text-center -mt-2">Score: {score}</p>
 
       <div className="grid grid-cols-4 gap-3 max-w-md mx-auto w-full">
         {tiles.map((tile) => {
@@ -77,7 +73,7 @@ export default function Game() {
               key={tile.id}
               onClick={() => handleTileClick(tile)}
               className={`aspect-square rounded-2xl text-4xl flex items-center justify-center shadow-md transition-colors ${
-                isFlipped ? 'bg-sage/20' : 'bg-teal'
+                isFlipped ? 'bg-sage/20 dark:bg-sage-dark/20' : 'bg-teal dark:bg-teal-dark'
               }`}
             >
               {isFlipped ? tile.icon : ''}
@@ -87,8 +83,8 @@ export default function Game() {
       </div>
 
       {allMatched && (
-        <Card className="text-center max-w-md mx-auto w-full">
-          <p className="text-xl font-bold text-sage mb-3">Well done! 🎉</p>
+        <Card className="text-center max-w-md mx-auto w-full rounded-3xl bg-white dark:bg-surface-dark">
+          <p className="text-xl font-bold text-sage dark:text-sage-dark mb-3">Well done! 🎉</p>
           <Button onClick={nextLevel} fullWidth>Next Level</Button>
         </Card>
       )}
