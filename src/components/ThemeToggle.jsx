@@ -26,10 +26,9 @@ export default function ThemeToggle() {
     <button
       onClick={toggle}
       aria-label="Toggle dark mode"
-      className="flex items-center gap-2 bg-white dark:bg-surface-dark border border-charcoal/10 dark:border-white/10 rounded-full px-4 py-2 text-sm shadow-sm"
+      className="w-11 h-11 flex items-center justify-center rounded-full bg-white dark:bg-surface-dark border border-charcoal/10 dark:border-white/10 shadow-sm text-lg"
     >
       <span aria-hidden="true">{isDark ? '☀️' : '🌙'}</span>
-      <span>{isDark ? 'Light mode' : 'Dark mode'}</span>
     </button>
   )
 }
