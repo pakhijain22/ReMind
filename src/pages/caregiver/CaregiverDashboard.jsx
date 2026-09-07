@@ -1,59 +1,110 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Card from '../../components/Card.jsx'
 import Button from '../../components/Button.jsx'
+import ThemeToggle from '../../components/ThemeToggle.jsx'
 import { mockSummary, mockWeeklyScores } from '../../mock/scores.js'
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
 
 export default function CaregiverDashboard() {
   const navigate = useNavigate()
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    const t = setTimeout(() => setMounted(true), 50)
+    return () => clearTimeout(t)
+  }, [])
+
+  const features = [
+    { icon: '📊', label: 'Analytics', desc: 'Trends & insights', to: '/caregiver/analytics' },
+    { icon: '⏰', label: 'Reminder Management', desc: 'Edit daily reminders', to: '/caregiver/reminders' },
+    { icon: '📷', label: 'Memory Manager', desc: 'Curate the vault', to: '/caregiver/memories' },
+    { icon: '👨‍👩‍👧‍👦', label: 'Care Circle', desc: 'Family & contacts', to: '/caregiver/care-circle' },
+    { icon: '🔔', label: 'Alerts & Reports', desc: 'Stay in the loop', to: '/caregiver/alerts' },
+  ]
 
   return (
-    <div className="min-h-screen bg-offwhite p-6 flex flex-col gap-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-teal">Caregiver Dashboard</h1>
-        <Button variant="ghost" onClick={() => navigate('/')}>Switch Role</Button>
+    <div className="min-h-screen bg-offwhite dark:bg-bg-dark transition-colors duration-300 p-6 flex flex-col gap-6">
+      <div
+        className={`flex items-center justify-between transition-all duration-700 ${
+          mounted ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'
+        }`}
+      >
+        <h1 className="font-display text-2xl md:text-3xl font-medium text-teal dark:text-teal-dark">
+          Caregiver Dashboard
+        </h1>
+        <div className="flex items-center gap-3">
+          <ThemeToggle />
+          <Button variant="ghost" onClick={() => navigate('/')}>Switch Role</Button>
+        </div>
       </div>
 
       <div className="grid grid-cols-2 gap-4">
-        <Card>
-          <p className="text-sm text-charcoal/60">Patient</p>
-          <p className="text-xl font-bold text-teal">{mockSummary.patientName}</p>
+        <Card className="rounded-3xl bg-white dark:bg-surface-dark">
+          <p className="text-sm text-charcoal/60 dark:text-text-dark/60">Patient</p>
+          <p className="text-xl font-bold text-teal dark:text-teal-dark">{mockSummary.patientName}</p>
         </Card>
-        <Card>
-          <p className="text-sm text-charcoal/60">Games Today</p>
-          <p className="text-xl font-bold text-teal">{mockSummary.gamesPlayedToday}</p>
+        <Card className="rounded-3xl bg-white dark:bg-surface-dark">
+          <p className="text-sm text-charcoal/60 dark:text-text-dark/60">Games Today</p>
+          <p className="text-xl font-bold text-teal dark:text-teal-dark">{mockSummary.gamesPlayedToday}</p>
         </Card>
-        <Card>
-          <p className="text-sm text-charcoal/60">Current Streak</p>
-          <p className="text-xl font-bold text-sage">{mockSummary.currentStreak} days</p>
+        <Card className="rounded-3xl bg-white dark:bg-surface-dark">
+          <p className="text-sm text-charcoal/60 dark:text-text-dark/60">Current Streak</p>
+          <p className="text-xl font-bold text-sage dark:text-sage-dark">{mockSummary.currentStreak} days</p>
         </Card>
-        <Card>
-          <p className="text-sm text-charcoal/60">Last Active</p>
-          <p className="text-xl font-bold text-teal">{mockSummary.lastActive}</p>
+        <Card className="rounded-3xl bg-white dark:bg-surface-dark">
+          <p className="text-sm text-charcoal/60 dark:text-text-dark/60">Last Active</p>
+          <p className="text-xl font-bold text-teal dark:text-teal-dark">{mockSummary.lastActive}</p>
         </Card>
       </div>
 
-      <Card>
-        <p className="text-lg font-bold text-charcoal mb-2">Weekly Progress</p>
+      <Card className="rounded-3xl bg-white dark:bg-surface-dark">
+        <p className="font-display text-lg font-medium text-charcoal dark:text-text-dark mb-2">Weekly Progress</p>
         <ResponsiveContainer width="100%" height={200}>
           <LineChart data={mockWeeklyScores}>
-            <XAxis dataKey="day" stroke="#1B2E2E" />
-            <YAxis stroke="#1B2E2E" />
+            <XAxis dataKey="day" stroke="currentColor" className="text-charcoal dark:text-text-dark" />
+            <YAxis stroke="currentColor" className="text-charcoal dark:text-text-dark" />
             <Tooltip />
             <Line type="monotone" dataKey="score" stroke="#0F5257" strokeWidth={3} />
           </LineChart>
         </ResponsiveContainer>
       </Card>
 
-      <div className="grid grid-cols-1 gap-3">
-        <Button onClick={() => navigate('/caregiver/analytics')} fullWidth>View Analytics</Button>
-        <Button variant="secondary" onClick={() => navigate('/caregiver/reminders')} fullWidth>
-          Manage Reminders
-        </Button>
-        <Button variant="ghost" onClick={() => navigate('/caregiver/settings')} fullWidth>
-          Settings
-        </Button>
+      <div>
+        <h2 className="font-display text-xl font-medium text-charcoal dark:text-text-dark mb-3">
+          Manage
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {features.map((f, i) => (
+            <div
+              key={f.label}
+              onClick={() => navigate(f.to)}
+              className={`bg-white dark:bg-surface-dark border border-charcoal/10 dark:border-white/10 rounded-3xl p-5 cursor-pointer flex items-center gap-4 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl ${
+                mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+              }`}
+              style={{ transitionDelay: mounted ? `${100 + i * 80}ms` : '0ms' }}
+            >
+              <span className="text-3xl">{f.icon}</span>
+              <div>
+                <p className="font-bold text-teal dark:text-teal-dark">{f.label}</p>
+                <p className="text-sm text-charcoal/60 dark:text-text-dark/60">{f.desc}</p>
+              </div>
+            </div>
+          ))}
+          <div
+            onClick={() => navigate('/caregiver/settings')}
+            className={`bg-white dark:bg-surface-dark border border-charcoal/10 dark:border-white/10 rounded-3xl p-5 cursor-pointer flex items-center gap-4 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl ${
+              mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+            }`}
+            style={{ transitionDelay: mounted ? `${100 + features.length * 80}ms` : '0ms' }}
+          >
+            <span className="text-3xl">⚙️</span>
+            <div>
+              <p className="font-bold text-teal dark:text-teal-dark">Settings</p>
+              <p className="text-sm text-charcoal/60 dark:text-text-dark/60">App & sync preferences</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   )
