@@ -1,12 +1,10 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import Card from '../../components/Card.jsx'
 import Button from '../../components/Button.jsx'
-import VoiceButton from '../../components/VoiceButton.jsx'
+import PageHeader from '../../components/PageHeader.jsx'
 import { mockReminders as initialReminders, reminderIcons } from '../../mock/reminders.js'
 
 export default function Reminders() {
-  const navigate = useNavigate()
   const [reminders, setReminders] = useState(initialReminders)
 
   const markDone = (id) => {
@@ -20,28 +18,26 @@ export default function Reminders() {
     .join('. ')}`
 
   return (
-    <div className="patient-screen min-h-screen bg-offwhite p-6 flex flex-col gap-5">
-      <div className="flex items-center justify-between">
-        <Button variant="ghost" onClick={() => navigate('/patient/home')}>← Back</Button>
-        <VoiceButton text={screenText} />
-      </div>
-
-      <h1 className="text-2xl font-bold text-teal">Today's Reminders</h1>
+    <div className="patient-screen min-h-screen bg-offwhite dark:bg-bg-dark transition-colors duration-300 p-6 flex flex-col gap-5">
+      <PageHeader title="Today's Reminders" backTo="/patient/home" voiceText={screenText} />
 
       <div className="flex flex-col gap-4">
         {reminders.map((r) => (
-          <Card key={r.id} className={`flex items-center justify-between gap-4 ${r.done ? 'opacity-60' : ''}`}>
+          <Card
+            key={r.id}
+            className={`flex items-center justify-between gap-4 rounded-3xl bg-white dark:bg-surface-dark ${r.done ? 'opacity-60' : ''}`}
+          >
             <div className="flex items-center gap-4">
               <span className="text-3xl">{reminderIcons[r.type]}</span>
               <div>
-                <p className="text-sm text-charcoal">{r.time}</p>
-                <p className="text-lg font-bold text-teal">{r.title}</p>
+                <p className="text-sm text-charcoal dark:text-text-dark/70">{r.time}</p>
+                <p className="text-lg font-bold text-teal dark:text-teal-dark">{r.title}</p>
               </div>
             </div>
             {!r.done ? (
               <Button variant="secondary" onClick={() => markDone(r.id)}>Done</Button>
             ) : (
-              <span className="text-sage font-bold">✓ Done</span>
+              <span className="text-sage dark:text-sage-dark font-bold">✓ Done</span>
             )}
           </Card>
         ))}
