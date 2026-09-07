@@ -9,7 +9,7 @@ export default function Card({ children, className = '', onClick = null }) {
   return (
     <div
       onClick={onClick}
-      className={`bg-white rounded-2xl shadow-md p-5 transition-all ${interactive} ${className}`}
+      className={`bg-white dark:bg-surface-dark rounded-2xl shadow-md p-5 transition-all ${interactive} ${className}`}
     >
       {children}
     </div>
