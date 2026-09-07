@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import ThemeToggle from '../../components/ThemeToggle.jsx'
+import HillsIllustration from '../../components/HillsIllustration.jsx'
 
 export default function Landing() {
   const navigate = useNavigate()
@@ -10,13 +11,11 @@ export default function Landing() {
   const roleSectionRef = useRef(null)
   const [rolesVisible, setRolesVisible] = useState(false)
 
-  // Hero entrance animation trigger
   useEffect(() => {
     const t = setTimeout(() => setMounted(true), 50)
     return () => clearTimeout(t)
   }, [])
 
-  // Install prompt handling
   useEffect(() => {
     const handler = (e) => {
       e.preventDefault()
@@ -27,8 +26,6 @@ export default function Landing() {
     return () => window.removeEventListener('beforeinstallprompt', handler)
   }, [])
 
-  // Scroll-reveal for role cards — plain IntersectionObserver, no extra library,
-  // so this adds zero new dependencies and cannot break the production build.
   useEffect(() => {
     if (!roleSectionRef.current) return
     const observer = new IntersectionObserver(
@@ -58,97 +55,84 @@ export default function Landing() {
 
   return (
     <div className="min-h-screen bg-offwhite dark:bg-bg-dark transition-colors duration-300 overflow-x-hidden">
-      <div className="max-w-5xl mx-auto px-6 py-10 relative">
 
+      {/* HERO — full-width misty hills background */}
+      <div className="relative w-full min-h-[560px] md:min-h-[620px] overflow-hidden flex items-center">
+        {/* Illustration fills the entire hero, edge to edge */}
+        <HillsIllustration
+          className="absolute inset-0 w-full h-full"
+          preserveAspectRatio="xMidYMid slice"
+        />
+
+        {/* Readability scrim — fades from solid bg on the left (text side)
+            to transparent on the right, so hills stay visible but text
+            always meets contrast requirements, in both themes. */}
         <div
-          className={`absolute top-6 right-6 transition-all duration-700 ${
-            mounted ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'
-          }`}
-        >
-          <ThemeToggle />
-        </div>
+          className="absolute inset-0 bg-gradient-to-r from-offwhite via-offwhite/80 to-transparent dark:from-bg-dark dark:via-bg-dark/80"
+          aria-hidden="true"
+        />
 
-        <div
-          className={`font-display text-2xl font-semibold text-teal dark:text-teal-dark mb-16 transition-all duration-700 ${
-            mounted ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-3'
-          }`}
-        >
-          ReMind
-        </div>
-
-        {showInstallBanner && (
-          <div className="mb-8 bg-amber/15 dark:bg-amber-dark/10 border border-amber dark:border-amber-dark rounded-2xl p-4 flex items-center justify-between gap-4 animate-[fadeIn_0.5s_ease]">
-            <p className="text-sm text-charcoal dark:text-text-dark">
-              Install ReMind on your device for quick, offline access.
-            </p>
-            <button
-              onClick={handleInstall}
-              className="min-h-touch bg-amber dark:bg-amber-dark text-charcoal px-5 py-2 rounded-xl font-bold whitespace-nowrap transition-transform hover:scale-105 active:scale-95"
-            >
-              Install
-            </button>
-          </div>
-        )}
-
-        {/* Hero */}
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div>
-            <h1
-              className={`font-display text-4xl md:text-5xl font-medium leading-tight text-charcoal dark:text-text-dark mb-5 max-w-md transition-all duration-700 delay-100 ${
-                mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-              }`}
-            >
-              Every memory, held a little closer.
-            </h1>
-            <p
-              className={`text-lg text-charcoal/70 dark:text-text-dark/70 max-w-md mb-9 leading-relaxed transition-all duration-700 delay-200 ${
-                mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-              }`}
-            >
-              ReMind helps elderly patients stay engaged through gentle games
-              and voice reminders, while giving families a clear, caring
-              window into their day.
-            </p>
-            <button
-              onClick={scrollToRoles}
-              className={`min-h-touch bg-teal dark:bg-teal-dark text-offwhite dark:text-bg-dark px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-700 delay-300 hover:scale-105 hover:shadow-lg active:scale-95 ${
-                mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-              }`}
-            >
-              Get started ↓
-            </button>
+        <div className="relative z-10 max-w-5xl mx-auto px-6 w-full">
+          <div
+            className={`absolute -top-6 right-6 md:top-6 transition-all duration-700 ${
+              mounted ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'
+            }`}
+          >
+            <ThemeToggle />
           </div>
 
           <div
-            className={`flex items-center justify-center transition-all duration-1000 delay-150 ${
-              mounted ? 'opacity-100 scale-100' : 'opacity-0 scale-90'
+            className={`font-display text-2xl font-semibold text-teal dark:text-teal-dark mb-10 transition-all duration-700 ${
+              mounted ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-3'
             }`}
           >
-            <svg viewBox="0 0 340 340" className="w-64 h-64 md:w-80 md:h-80">
-              <circle
-                cx="170" cy="170" r="150" fill="none" strokeWidth="2"
-                className="stroke-amber dark:stroke-amber-dark opacity-30 animate-[ringPulse_5s_ease-in-out_infinite]"
-              />
-              <circle
-                cx="170" cy="170" r="115" fill="none" strokeWidth="2"
-                className="stroke-teal dark:stroke-teal-dark opacity-50 animate-[ringPulse_5s_ease-in-out_infinite_0.5s]"
-              />
-              <circle
-                cx="170" cy="170" r="80" fill="none" strokeWidth="2"
-                className="stroke-amber dark:stroke-amber-dark opacity-80 animate-[ringPulse_5s_ease-in-out_infinite_1s]"
-              />
-              <circle
-                cx="170" cy="170" r="55"
-                className="fill-amber/15 dark:fill-amber-dark/15 stroke-amber dark:stroke-amber-dark"
-                strokeWidth="2"
-              />
-              <text x="170" y="185" textAnchor="middle" fontSize="44">🌼</text>
-            </svg>
+            ReMind
           </div>
-        </div>
 
-        {/* Role selection — the ONE place this choice is made */}
-        <div ref={roleSectionRef} className="mt-24 scroll-mt-10">
+          {showInstallBanner && (
+            <div className="mb-8 max-w-md bg-amber/15 dark:bg-amber-dark/10 border border-amber dark:border-amber-dark rounded-2xl p-4 flex items-center justify-between gap-4 animate-[fadeIn_0.5s_ease] backdrop-blur-sm">
+              <p className="text-sm text-charcoal dark:text-text-dark">
+                Install ReMind on your device for quick, offline access.
+              </p>
+              <button
+                onClick={handleInstall}
+                className="min-h-touch bg-amber dark:bg-amber-dark text-charcoal px-5 py-2 rounded-xl font-bold whitespace-nowrap transition-transform hover:scale-105 active:scale-95"
+              >
+                Install
+              </button>
+            </div>
+          )}
+
+          <h1
+            className={`font-display text-4xl md:text-6xl font-medium leading-tight text-charcoal dark:text-text-dark mb-5 max-w-lg transition-all duration-700 delay-100 ${
+              mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+            }`}
+          >
+            Every memory, held a little closer.
+          </h1>
+          <p
+            className={`text-lg text-charcoal/70 dark:text-text-dark/70 max-w-md mb-9 leading-relaxed transition-all duration-700 delay-200 ${
+              mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+            }`}
+          >
+            ReMind helps elderly patients stay engaged through gentle games
+            and voice reminders, while giving families a clear, caring
+            window into their day.
+          </p>
+          <button
+            onClick={scrollToRoles}
+            className={`min-h-touch bg-teal dark:bg-teal-dark text-offwhite dark:text-bg-dark px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-700 delay-300 hover:scale-105 hover:shadow-lg active:scale-95 ${
+              mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+            }`}
+          >
+            Get started ↓
+          </button>
+        </div>
+      </div>
+
+      {/* ROLE SELECTION — normal background, below the hero */}
+      <div className="max-w-5xl mx-auto px-6 py-16">
+        <div ref={roleSectionRef} className="scroll-mt-10">
           <h2
             className={`font-display text-2xl font-medium text-charcoal dark:text-text-dark mb-8 text-center transition-all duration-700 ${
               rolesVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
@@ -164,7 +148,7 @@ export default function Landing() {
               }`}
               style={{ transitionDelay: rolesVisible ? '100ms' : '0ms' }}
             >
-              <div className="text-4xl mb-4 transition-transform group-hover:scale-110">👵</div>
+              <div className="text-4xl mb-4">👵</div>
               <h3 className="font-display text-2xl font-medium text-teal dark:text-teal-dark mb-2">
                 I am a patient
               </h3>
