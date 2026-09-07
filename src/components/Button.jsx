@@ -13,6 +13,7 @@ export default function Button({
   fullWidth = false,
   disabled = false,
   type = 'button',
+  className = '',
 }) {
   const base =
     'min-h-touch min-w-touch px-6 py-3 rounded-2xl font-semibold text-lg flex items-center justify-center gap-2 transition-transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed'
@@ -20,7 +21,7 @@ export default function Button({
   const variants = {
     primary: 'bg-teal text-white hover:bg-teal/90',
     secondary: 'bg-amber text-charcoal hover:bg-amber/90',
-    ghost: 'bg-transparent border-2 border-teal text-teal hover:bg-teal/5',
+    ghost: 'bg-transparent border-2 border-teal dark:border-teal-dark text-teal dark:text-teal-dark hover:bg-teal/5 dark:hover:bg-teal-dark/10',
   }
 
   return (
@@ -28,7 +29,7 @@ export default function Button({
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={`${base} ${variants[variant]} ${fullWidth ? 'w-full' : ''}`}
+      className={`${base} ${variants[variant]} ${fullWidth ? 'w-full' : ''} ${className}`}
     >
       {icon && <span aria-hidden="true">{icon}</span>}
       <span>{children}</span>
