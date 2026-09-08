@@ -9,10 +9,11 @@
     "seed": "node seed/seedData.js"
   },
   "dependencies": {
-    "express": "^4.19.2",
-    "mongoose": "^8.5.0",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.5",
-    "cors": "^2.8.5"
+    "express": "^4.19.2",
+    "groq-sdk": "^1.6.0",
+    "mongoose": "^8.5.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.4"
