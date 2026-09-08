@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const connectDB = require('./config/db');
 const errorHandler = require('./middleware/errorHandler');
+const aiRoutes=require('./ai/routes/aiRoutes');
 
 const patientRoutes = require('./routes/patientRoutes');
 const gameSessionRoutes = require('./routes/gameSessionRoutes');
@@ -28,6 +29,7 @@ app.use('/api', dashboardRoutes);
 app.use('/api', syncRoutes);
 app.use('/api', memoryRoutes);
 app.use('/api', reminiscenceRoutes);
+app.use('/api/ai', aiRoutes);
 
 // Catches any error thrown/rejected inside a controller — must be registered last
 app.use(errorHandler);

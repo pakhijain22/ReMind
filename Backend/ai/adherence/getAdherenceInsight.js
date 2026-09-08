@@ -1,4 +1,4 @@
- function getAdherenceInsight(reminderLog) {
+function getAdherenceInsight(reminderLog) {
   const total = reminderLog.length;
   const doneCount = reminderLog.filter((r) => r.status === "done").length;
   const percentage = total > 0 ? Math.round((doneCount / total) * 100) : 100;
@@ -7,17 +7,25 @@
   reminderLog
     .filter((r) => r.status === "missed")
     .forEach((r) => {
-      const key = `${r.type}|${r.scheduledTime}`;
+      const key = `${r.type}|${r.weekday}`;
       misses[key] = (misses[key] || 0) + 1;
     });
 
-  const [worstKey, worstCount] = Object.entries(misses).sort((a, b) => b[1] - a[1])[0] || [null, 0];
+  const [worstKey, worstCount] =
+    Object.entries(misses).sort((a, b) => b[1] - a[1])[0] || [null, 0];
+
   const riskFlag = worstCount >= 2; // matches the contract's own "Rule-based expectation" note
 
   let missedPattern = null;
+
   if (worstKey) {
-    const [type, timeOfDay] = worstKey.split("|");
-    missedPattern = { type, timeOfDay, missedCount: worstCount };
+    const [type, weekday] = worstKey.split("|");
+
+    missedPattern = {
+      type,
+      weekday,
+      missedCount: worstCount,
+    };
   }
 
   const headline = riskFlag
@@ -27,7 +35,7 @@
     : "Adherence is steady";
 
   const detail = missedPattern
-    ? `${percentage}% of scheduled reminders were marked done. ${missedPattern.type} reminders are occasionally missed around ${missedPattern.timeOfDay} — consider adjusting the time.`
+    ? `${percentage}% of scheduled reminders were marked done. ${missedPattern.type} reminders are occasionally missed on ${missedPattern.weekday} — consider adjusting the routine.`
     : `${percentage}% of scheduled reminders were marked done this period.`;
 
   return {
@@ -38,4 +46,5 @@
     missedPattern,
   };
 }
-module.exports= { getAdherenceInsight };
+
+module.exports = { getAdherenceInsight };
