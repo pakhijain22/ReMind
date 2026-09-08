@@ -1,6 +1,6 @@
-# CogniCare Backend
+# ReMind Backend
 
-Node.js + Express + MongoDB backend for CogniCare, built to match `API_CONTRACT.md` exactly.
+Node.js + Express + MongoDB backend for ReMind, built to match `API_CONTRACT.md` exactly.
 
 ## Setup
 
@@ -13,8 +13,8 @@ Node.js + Express + MongoDB backend for CogniCare, built to match `API_CONTRACT.
    ```
    npm run dev
    ```
-4. You should see `Database connected` and `CogniCare backend running on port 5000` in the terminal.
-5. Visit `http://localhost:5000/` in a browser — you should see `{"status":"CogniCare API is running"}`.
+4. You should see `Database connected` and `ReMind backend running on port 5000` in the terminal.
+5. Visit `http://localhost:5000/` in a browser — you should see `{"status":"ReMind API is running"}`.
 
 ## Seed sample data (do this once, for demo-ready data)
 

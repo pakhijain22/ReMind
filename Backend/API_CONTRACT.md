@@ -1,8 +1,8 @@
-# CogniCare — API Contract (Single Source of Truth)
+# ReMind — API Contract (Single Source of Truth)
 
 ## Instructions for both AI assistants reading this document
 
-This document is the **exact, locked contract** between the CogniCare backend and frontend. Its purpose is to prevent format mismatches (wrong field names, wrong types, unexpected nesting) that cause long, painful debugging sessions when frontend and backend are built by different people at the same time.
+This document is the **exact, locked contract** between the ReMind backend and frontend. Its purpose is to prevent format mismatches (wrong field names, wrong types, unexpected nesting) that cause long, painful debugging sessions when frontend and backend are built by different people at the same time.
 
 **Rules for whichever AI is helping build against this document:**
 1. Use the field names, types, and structure below **exactly as written** — do not rename fields, change casing, or restructure nesting "for clarity" or "best practice." Consistency with this document matters more than any individual preference.

@@ -1,7 +1,7 @@
 {
-  "name": "cognicare-backend",
+  "name": "remind-backend",
   "version": "1.0.0",
-  "description": "CogniCare backend API — Node.js + Express + MongoDB",
+  "description": "ReMind backend API — Node.js + Express + MongoDB",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

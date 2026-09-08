@@ -19,7 +19,7 @@ app.use(express.json({ limit: '10mb' })); // higher limit to allow base64 photo 
 connectDB();
 
 // Simple health check — useful to confirm the deployed server is alive
-app.get('/', (req, res) => res.json({ status: 'CogniCare API is running' }));
+app.get('/', (req, res) => res.json({ status: 'ReMind API is running' }));
 
 app.use('/api', patientRoutes);
 app.use('/api', gameSessionRoutes);
@@ -33,4 +33,4 @@ app.use('/api', reminiscenceRoutes);
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`CogniCare backend running on port ${PORT}`));
+app.listen(PORT, () => console.log(`ReMind backend running on port ${PORT}`));
