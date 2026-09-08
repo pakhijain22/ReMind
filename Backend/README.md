@@ -14,7 +14,7 @@ Node.js + Express + MongoDB backend for ReMind, built to match `API_CONTRACT.md`
    npm run dev
    ```
 4. You should see `Database connected` and `ReMind backend running on port 5000` in the terminal.
-5. Visit `http://localhost:5000/` in a browser — you should see `{"status":"ReMind API is running"}`.
+5. Visit `https://remind-hdxe.onrender.com` in a browser — you should see `{"status":"ReMind API is running"}`.
 
 ## Seed sample data (do this once, for demo-ready data)
 
