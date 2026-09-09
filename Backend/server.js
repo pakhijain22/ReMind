@@ -21,6 +21,7 @@ app.use(cors({
     'https://re-mind-ten.vercel.app'
   ]
 }));
+app.use(express.json());
 connectDB();
 
 // Simple health check — useful to confirm the deployed server is alive
