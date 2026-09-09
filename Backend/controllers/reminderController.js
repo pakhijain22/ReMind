@@ -2,6 +2,38 @@ const Reminder = require('../models/Reminder');
 const ReminderLog = require('../models/ReminderLog');
 const { success, error } = require('../utils/responseFormat');
 
+function formatReminder(reminder) {
+  return {
+    id: reminder._id.toString(),
+    patientId: reminder.patientId.toString(),
+    type: reminder.type,
+    label: reminder.label,
+    scheduledTime: reminder.scheduledTime,
+    weekday: reminder.weekday,
+    status: reminder.status,
+  };
+}
+
+// POST /reminders — Create Reminder
+async function createReminder(req, res) {
+  const reminder = await Reminder.create(req.body);
+  return success(res, formatReminder(reminder), 201);
+}
+
+// PATCH /reminders/:id — Edit Reminder
+async function updateReminder(req, res) {
+  const reminder = await Reminder.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
+  if (!reminder) return error(res, 'Reminder not found', 404);
+  return success(res, formatReminder(reminder));
+}
+
+// DELETE /reminders/:id — Delete Reminder
+async function deleteReminder(req, res) {
+  const reminder = await Reminder.findByIdAndDelete(req.params.id);
+  if (!reminder) return error(res, 'Reminder not found', 404);
+  return success(res, { id: req.params.id });
+}
+
 // PATCH /reminders/:id/status — Update Reminder Status
 async function updateReminderStatus(req, res) {
   const { status } = req.body;
@@ -56,4 +88,11 @@ async function getReminderLogs(req, res) {
   })));
 }
 
-module.exports = { updateReminderStatus, getPatientReminders, getReminderLogs };
+module.exports = {
+  createReminder,
+  updateReminder,
+  deleteReminder,
+  updateReminderStatus,
+  getPatientReminders,
+  getReminderLogs,
+};
