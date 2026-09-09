@@ -1,4 +1,4 @@
-# 🧠 ReMind
+# ReMind
 
 ### A Gamified Cognitive Wellness Platform for Dementia Care
 
