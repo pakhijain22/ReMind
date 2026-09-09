@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import Card from '../../components/Card.jsx'
 import Button from '../../components/Button.jsx'
 import { mockMemories } from '../../mock/memories.js'
-import { mockSummary } from '../../mock/scores.js'
+import { mockPatient } from '../../mock/patient.js'
 
 export default function MemoryManager() {
   const navigate = useNavigate()
@@ -21,7 +21,7 @@ export default function MemoryManager() {
       </div>
 
       <p className="text-charcoal/70 dark:text-text-dark/70 -mt-2">
-        Add or remove photos and moments from {mockSummary.patientName}'s Memory Vault.
+        Add or remove photos and moments from {mockPatient.name}'s Memory Vault.
       </p>
 
       <Button
@@ -34,9 +34,12 @@ export default function MemoryManager() {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {memories.map((m) => (
           <Card key={m.id} className="rounded-3xl bg-white dark:bg-surface-dark">
-            <img src={m.photoUrl} alt={m.note} className="w-full h-40 object-cover rounded-xl mb-3" />
+            <img src={m.photo} alt={m.title} className="w-full h-40 object-cover rounded-xl mb-3" />
+            <p className="font-bold text-teal dark:text-teal-dark">{m.title}</p>
             <p className="text-charcoal dark:text-text-dark">{m.note}</p>
-            <p className="text-sm text-charcoal/60 dark:text-text-dark/60 mt-1 mb-3">{m.date}</p>
+            <p className="text-sm text-charcoal/60 dark:text-text-dark/60 mt-1 mb-3">
+              {new Date(m.createdAt).toLocaleDateString()}
+            </p>
             <div className="flex gap-2">
               <Button variant="ghost" onClick={() => alert('Edit memory — hook up form here')}>
                 Edit
