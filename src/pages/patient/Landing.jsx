@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import ThemeToggle from '../../components/ThemeToggle.jsx'
 import HillsIllustration from '../../components/HillsIllustration.jsx'
 
+
 export default function Landing() {
   const navigate = useNavigate()
   const [installPrompt, setInstallPrompt] = useState(null)
@@ -74,7 +75,7 @@ export default function Landing() {
 
         <div className="relative z-10 max-w-5xl mx-auto px-6 w-full">
           <div
-            className={`absolute -top-6 right-6 md:top-6 transition-all duration-700 ${
+            className={`absolute top-4 right-4 md:top-6 md:right-6 transition-all duration-700 ${
               mounted ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'
             }`}
           >
@@ -129,6 +130,8 @@ export default function Landing() {
           </button>
         </div>
       </div>
+
+      
 
       {/* ROLE SELECTION — normal background, below the hero */}
       <div className="max-w-5xl mx-auto px-6 py-16">
