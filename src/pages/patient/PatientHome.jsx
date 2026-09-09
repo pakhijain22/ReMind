@@ -12,7 +12,7 @@ import { mockWeeklyScores, mockSummary } from '../../mock/scores.js'
 export default function PatientHome() {
   const navigate = useNavigate()
   const [mounted, setMounted] = useState(false)
-  const nextReminder = mockReminders.find((r) => !r.done)
+  const nextReminder = mockReminders.find((r) => r.status !== 'done')
 
   useEffect(() => {
     const t = setTimeout(() => setMounted(true), 50)
@@ -20,7 +20,7 @@ export default function PatientHome() {
   }, [])
 
   const screenText = `${mockPatient.greeting}, ${mockPatient.name}. ${
-    nextReminder ? `Your next reminder is ${nextReminder.title} at ${nextReminder.time}.` : 'You have no pending reminders.'
+    nextReminder ? `Your next reminder is ${nextReminder.label} at ${nextReminder.scheduledTime}.` : 'You have no pending reminders.'
   }`
 
   const tiles = [
@@ -67,7 +67,7 @@ export default function PatientHome() {
           <span className="text-3xl">{reminderIcons[nextReminder.type]}</span>
           <div>
             <p className="text-sm text-charcoal dark:text-text-dark">Next reminder</p>
-            <p className="text-xl font-bold text-teal dark:text-teal-dark">{nextReminder.title} — {nextReminder.time}</p>
+            <p className="text-xl font-bold text-teal dark:text-teal-dark">{nextReminder.label} — {nextReminder.scheduledTime}</p>
           </div>
         </Card>
       )}
@@ -96,28 +96,30 @@ export default function PatientHome() {
         </p>
       </Card>
 
-
       <div>
         <h2 className="font-display text-xl font-medium text-charcoal dark:text-text-dark mb-3">
           What would you like to do?
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {tiles.map((tile, i) => (
-            <div
-              key={tile.label}
-              className={`transition-all duration-500 ${
-                mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
-              }`}
-              style={{ transitionDelay: mounted ? `${150 + i * 80}ms` : '0ms' }}
-            >
-              <Tile
-                icon={tile.icon}
-                label={tile.label}
-                accent={tile.accent}
-                onClick={() => navigate(tile.to)}
-              />
-            </div>
-          ))}
+          {tiles.map((tile, i) => {
+            const isLastOdd = tiles.length % 2 !== 0 && i === tiles.length - 1
+            return (
+              <div
+                key={tile.label}
+                className={`${isLastOdd ? 'sm:col-span-2' : ''} transition-all duration-500 ${
+                  mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+                }`}
+                style={{ transitionDelay: mounted ? `${150 + i * 80}ms` : '0ms' }}
+              >
+                <Tile
+                  icon={tile.icon}
+                  label={tile.label}
+                  accent={tile.accent}
+                  onClick={() => navigate(tile.to)}
+                />
+              </div>
+            )
+          })}
         </div>
       </div>
     </div>
