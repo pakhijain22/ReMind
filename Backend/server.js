@@ -15,9 +15,12 @@ const memoryRoutes = require('./routes/memoryRoutes');
 const reminiscenceRoutes = require('./routes/reminiscenceRoutes');
 
 const app = express();
-app.use(cors());
-app.use(express.json({ limit: '10mb' })); // higher limit to allow base64 photo uploads for the Memory Vault
-
+app.use(cors({
+  origin: [
+    'http://localhost:5173',
+    'https://re-mind-ten.vercel.app'
+  ]
+}));
 connectDB();
 
 // Simple health check — useful to confirm the deployed server is alive
