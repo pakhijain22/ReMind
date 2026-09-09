@@ -41,8 +41,8 @@ export default function ReminderManagement() {
             <div className="flex items-center gap-3">
               <span className="text-2xl">{reminderIcons[r.type]}</span>
               <div>
-                <p className="text-sm text-charcoal/60 dark:text-text-dark/60">{r.time}</p>
-                <p className="font-bold text-teal dark:text-teal-dark">{r.title}</p>
+                <p className="text-sm text-charcoal/60 dark:text-text-dark/60">{r.scheduledTime}</p>
+                <p className="font-bold text-teal dark:text-teal-dark">{r.label}</p>
               </div>
             </div>
             <div className="flex gap-2">
