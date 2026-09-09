@@ -28,10 +28,17 @@ export default function Analytics() {
       </Card>
 
       {/* Wow Factor #3: Predictive Medication Adherence insight card */}
-      <Card className="rounded-3xl bg-sage/10 dark:bg-sage-dark/10 border border-sage dark:border-sage-dark">
-        <p className="text-sm font-bold text-sage dark:text-sage-dark uppercase tracking-wide mb-1">
-          Predictive Medication Adherence
-        </p>
+      <Card className={`rounded-3xl ${mockAdherenceInsight.riskFlag ? 'bg-alertamber/10 dark:bg-amber-dark/10 border border-alertamber dark:border-amber-dark' : 'bg-sage/10 dark:bg-sage-dark/10 border border-sage dark:border-sage-dark'}`}>
+        <div className="flex items-center justify-between mb-1">
+          <p className={`text-sm font-bold uppercase tracking-wide ${mockAdherenceInsight.riskFlag ? 'text-alertamber dark:text-amber-dark' : 'text-sage dark:text-sage-dark'}`}>
+            Predictive Medication Adherence
+          </p>
+          {mockAdherenceInsight.riskFlag && (
+            <span className="text-xs font-bold bg-alertamber dark:bg-amber-dark text-charcoal px-2 py-1 rounded-full">
+              Worth a look
+            </span>
+          )}
+        </div>
         <p className="text-lg font-bold text-charcoal dark:text-text-dark">{mockAdherenceInsight.headline}</p>
         <p className="text-charcoal/80 dark:text-text-dark/80 mt-1">{mockAdherenceInsight.detail}</p>
       </Card>
