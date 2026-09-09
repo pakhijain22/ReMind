@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-[#d7e2d8] text-charcoal font-body antialiased;
+    font-size: 18px;
+    line-height: 1.6;
+  }
+
+  html.dark body {
+    @apply bg-[#102f32] text-[#f5ead8];
+  }
+
+  html.dark .bg-white\/90,
+  html.dark .bg-white\/70,
+  html.dark .bg-white\/60 {
+    background-color: rgba(24, 57, 57, 0.94);
+    color: #f5ead8;
+  }
+
+  html.dark [class*="text-charcoal"] {
+    color: #f5ead8 !important;
+  }
+
+  html.dark [class*="text-teal"] {
+    color: #8ed0bd !important;
+  }
+
+  html.dark [class*="text-sage"] {
+    color: #b5dfbd !important;
+  }
+
+  html.dark [class*="text-rose"] {
+    color: #ffb1b8 !important;
+  }
+
+  html.dark input,
+  html.dark textarea,
+  html.dark select {
+    background-color: #102f32;
+    color: #f5ead8;
+    border-color: #5b8278;
+  }
+
+  html.dark input::placeholder,
+  html.dark textarea::placeholder {
+    color: #b8cec2;
+  }
+
+  html.dark .border-charcoal\/10 {
+    border-color: rgba(215, 226, 216, 0.28);
+  }
+
+  h1, h2, h3 {
+    @apply font-display;
+  }
+
+  /* Visible keyboard focus everywhere — never remove this for accessibility */
+  :focus-visible {
+    outline: 3px solid #0F5257;
+    outline-offset: 2px;
+  }
+
+  /* Respect reduced-motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+}
+
+@layer utilities {
+  .text-size-a {
+    font-size: 18px;
+  }
+  .text-size-a-plus {
+    font-size: 21px;
+  }
+  .text-size-a-plus-plus {
+    font-size: 24px;
+  }
+}
