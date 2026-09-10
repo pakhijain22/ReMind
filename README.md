@@ -91,14 +91,37 @@ ReMind can include activities targeting:
 
 ## 🛠️ Tech Stack
 
+[svg](https://github.com/pakhijain22/ReMind#%EF%B8%8F-tech-stack)
+
 ### Frontend
+
+[svg](https://github.com/pakhijain22/ReMind#frontend)
 
 * HTML5
 * CSS3
 * JavaScript
 * React.js
 
+### Backend
+
+[svg](https://github.com/pakhijain22/ReMind#backend)
+
+* Node.js
+* Express.js
+* MongoDB
+* Mongoose
+
+### AI & APIs
+
+[svg](https://github.com/pakhijain22/ReMind#ai--apis)
+
+* Groq API
+* Large Language Model (LLM)
+* REST APIs
+
 ### Development Tools
+
+[svg](https://github.com/pakhijain22/ReMind#development-tools)
 
 * Vite
 * Git
@@ -107,13 +130,20 @@ ReMind can include activities targeting:
 
 ### Deployment
 
-* Vercel
+[svg](https://github.com/pakhijain22/ReMind#deployment)
+
+* Vercel — Frontend Deployment
+* Render — Backend Deployment
 
 ### Additional Technologies
 
+[svg](https://github.com/pakhijain22/ReMind#additional-technologies)
+
 * Progressive Web App (PWA)
 * Service Workers
+* IndexedDB
 * Web APIs
+* Offline-First Architecture
 
 ---
 
@@ -232,5 +262,5 @@ The cognitive activities are intended for engagement and supportive practice and
 
 ---
 
-### Made with ❤️ and technology for a more inclusive digital future.
+### Made with ❤️ and technology for a more inclusive digital future ~ Tejasvi.
 
